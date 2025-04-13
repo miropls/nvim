@@ -1,6 +1,9 @@
 return {
 	"stevearc/oil.nvim",
 	lazy = false,
+	keys = {
+		{ "<leader>m", "<CMD>Oil<CR>", desc = "Filetree (Oil)" },
+	},
 	config = function()
 		require("oil").setup({
 			columns = {
@@ -21,6 +24,5 @@ return {
 			watch_for_changes = true,
 			default_file_explorer = true,
 		})
-		vim.keymap.set("n", "<leader>m", "<CMD>Oil<CR>", { desc = "Filetree (Oil)" })
 	end,
 }

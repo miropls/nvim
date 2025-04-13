@@ -1,6 +1,6 @@
 return {
 	"echasnovski/mini.nvim",
-	lazy = false,
+	version = false,
 	config = function()
 		-- Appereance
 		require("mini.notify").setup()

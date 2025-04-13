@@ -9,8 +9,34 @@ return {
 		},
 		"nvim-telescope/telescope-ui-select.nvim",
 	},
+	keys = {
+		{ "<leader>ff", require("telescope.builtin").find_files, desc = "Files" },
+		{ "<leader>fg", require("telescope.builtin").git_files, desc = "Git files" },
+		{
+			"<leader>c",
+			function()
+				require("telescope.builtin").find_files({
+					cwd = vim.fn.stdpath("config"),
+				})
+			end,
+			desc = "Open Neovim config",
+		},
+
+		{
+			"<leader>p",
+			function()
+				require("telescope.builtin").live_grep(require("telescope.themes"))
+			end,
+			desc = "Fuzzy search",
+		},
+
+		-- git
+		{ "<leader>ggc", require("telescope.builtin").git_commits, desc = "Commits" },
+		{ "<leader>ggb", require("telescope.builtin").git_branches, desc = "Branches" },
+		{ "<leader>ggs", require("telescope.builtin").git_status, desc = "Status" },
+		{ "<leader>ggt", require("telescope.builtin").git_stash, desc = "Stash" },
+	},
 	config = function()
-		local builtin = require("telescope.builtin")
 		local config = require("telescope.config")
 		local vimgrep_arguments = { unpack(config.values.vimgrep_arguments) }
 
@@ -33,24 +59,6 @@ return {
 				},
 			},
 		})
-
-		vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Files" })
-		vim.keymap.set("n", "<leader>fg", builtin.git_files, { desc = "Git files" })
-		vim.keymap.set("n", "<leader>c", function()
-			builtin.find_files({
-				cwd = vim.fn.stdpath("config"),
-			})
-		end, { desc = "Open Neovim config" })
-
-		vim.keymap.set("n", "<leader>p", function()
-			builtin.live_grep(require("telescope.themes"))
-		end, { desc = "Fuzzy search" })
-
-		-- git
-		vim.keymap.set("n", "<leader>ggc", builtin.git_commits, { desc = "Commits" })
-		vim.keymap.set("n", "<leader>ggb", builtin.git_branches, { desc = "Branches" })
-		vim.keymap.set("n", "<leader>ggs", builtin.git_status, { desc = "Status" })
-		vim.keymap.set("n", "<leader>ggt", builtin.git_stash, { desc = "Stash" })
 
 		require("telescope").load_extension("fzf")
 		require("telescope").load_extension("ui-select")
